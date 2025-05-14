@@ -1,5 +1,3 @@
-require('dotenv').config();
-
 const puppeteer = require('puppeteer');
 const axios = require('axios');
 
@@ -20,8 +18,8 @@ const axios = require('axios');
       });
 
       // Login
-      await page.type('input[name="usuario"]', process.env.USERNAME);
-      await page.type('input[name="senha"]', process.env.PASSWORD);
+      await page.type('input[name="usuario"]', '');
+      await page.type('input[name="senha"]', '');
       await page.click('button.btn.btn-block');
       await page.waitForSelector('.task-contain');
 
@@ -77,8 +75,8 @@ const axios = require('axios');
       // Envia notificação para cada chamado novo
       for (const chamado of novosChamados) {
         await axios.post('https://api.ultramsg.com/instance118958/messages/chat', {
-          token: process.env.API_TOKEN,
-          to: process.env.PHONE_NUMBER,
+          token: '',
+          to: '+55',
           body: `📢 Novo chamado após o início:\nCódigo: ${chamado.codigo}\nData/hora: ${chamado.dataHora}`
         });
         console.log(`✅ Chamado ${chamado.codigo} (${chamado.dataHora}) notificado.`);
